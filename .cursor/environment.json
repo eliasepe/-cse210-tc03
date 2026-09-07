@@ -1,4 +1,4 @@
 {
   "name": "CSE210 TC03 Python Games",
-  "install": "python3 -m pip install --break-system-packages -r requirements.txt"
+  "install": "python3 -m pip install --break-system-packages -r /agent/repos/-cse210-tc03/requirements.txt"
 }
