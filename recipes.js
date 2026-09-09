@@ -192,7 +192,7 @@ const RECIPES = [
     servings: null,
     prepTime: null,
     cookTime: null,
-    totalTime: 10,
+    totalTime: null, // DEMO: sin duración verificable — no inventar minutos
     calories: null,
     protein: null,
     carbs: null,
@@ -231,7 +231,7 @@ const RECIPES = [
     servings: null,
     prepTime: null,
     cookTime: null,
-    totalTime: 35,
+    totalTime: null, // DEMO: sin duración verificable — no inventar minutos
     calories: null,
     protein: null,
     carbs: null,
@@ -266,7 +266,7 @@ const RECIPES = [
     servings: 1,
     prepTime: null,
     cookTime: null,
-    totalTime: 5,
+    totalTime: null, // DEMO: sin duración verificable — no inventar minutos
     calories: null,
     protein: null,
     carbs: null,

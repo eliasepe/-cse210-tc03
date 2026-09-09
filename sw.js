@@ -1,5 +1,5 @@
 /* Service worker mínimo — PWA-ready (caché básica para evolución offline). */
-const CACHE = "mussri-cocina-v1";
+const CACHE = "mussri-cocina-v2";
 const ASSETS = [
   "./",
   "./index.html",

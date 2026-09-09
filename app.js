@@ -120,6 +120,7 @@ function matchesQuery(recipe, query) {
 function matchesTime(recipe, time) {
   if (!time) return true;
   const t = recipeTime(recipe);
+  // Sin tiempo publicado: no entra en filtros de duración (dato no verificable).
   if (t == null) return false;
   if (time === "lt15") return t < 15;
   if (time === "15-30") return t >= 15 && t <= 30;
@@ -190,7 +191,8 @@ function availableMealFilters() {
 }
 
 function hasAnyTimedRecipe() {
-  return RECIPES.some((r) => recipeTime(r) != null);
+  // Solo mostrar filtros de tiempo si hay recetas REALES con duración verificable.
+  return RECIPES.some((r) => !r.isDemo && recipeTime(r) != null);
 }
 
 /* -------------------- Media helpers -------------------- */
@@ -392,6 +394,15 @@ function renderExplore() {
 
   $("#explore-search").value = state.query;
   $("#sort-select").value = state.sort;
+  // Ocultar "Más rápidas" si no hay duraciones reales publicadas.
+  const fastestOpt = $('#sort-select option[value="fastest"]');
+  if (fastestOpt) {
+    fastestOpt.hidden = !hasAnyTimedRecipe();
+    if (fastestOpt.hidden && state.sort === "fastest") {
+      state.sort = "newest";
+      $("#sort-select").value = "newest";
+    }
+  }
 
   const grid = $("#explore-grid");
   const empty = $("#explore-empty");
@@ -674,20 +685,20 @@ function renderCook(id) {
 async function shareRecipe(id) {
   const recipe = getRecipe(id);
   if (!recipe) return;
-  const url = `${location.origin}${location.pathname}#recipe=${recipe.id}`;
+  const url = recipeShareUrl(recipe.id);
   const payload = {
     title: recipe.title,
     text: `${recipe.title} — Mussri Cocina`,
     url,
   };
-  try {
-    if (navigator.share) {
+  if (navigator.share) {
+    try {
       await navigator.share(payload);
       return;
+    } catch (err) {
+      // AbortError = usuario canceló; en ese caso no hacemos fallback.
+      if (err && err.name === "AbortError") return;
     }
-  } catch {
-    /* user cancelled */
-    return;
   }
   try {
     await navigator.clipboard.writeText(url);
@@ -695,6 +706,14 @@ async function shareRecipe(id) {
   } catch {
     showToast(url);
   }
+}
+
+function recipeShareUrl(id) {
+  const { origin, pathname, protocol, href } = location;
+  if (protocol === "file:" || !origin || origin === "null") {
+    return `${pathname || href.split("#")[0]}#recipe=${id}`;
+  }
+  return `${origin}${pathname}#recipe=${id}`;
 }
 
 function surpriseMe() {
@@ -899,6 +918,10 @@ function bindEvents() {
 
   const onSearchInput = (value) => {
     state.query = value.trim();
+    const hero = $("#hero-search");
+    const explore = $("#explore-search");
+    if (hero && hero.value !== value) hero.value = value;
+    if (explore && explore.value !== value) explore.value = value;
     if (state.view !== "explore") setView("explore");
     else renderExplore();
   };
