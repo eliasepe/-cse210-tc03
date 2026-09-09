@@ -1,3 +1,4 @@
+(() => {
 const {
   RECIPES,
   CATEGORY_META,
@@ -720,6 +721,10 @@ function clearFilters() {
   state.traits = new Set();
   state.time = "";
   state.sort = "newest";
+  const hero = $("#hero-search");
+  const explore = $("#explore-search");
+  if (hero) hero.value = "";
+  if (explore) explore.value = "";
   renderExplore();
 }
 
@@ -929,3 +934,4 @@ function init() {
 }
 
 init();
+})();
