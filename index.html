@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Recetario digital de la comunidad de Doctor Mussri: encuentra, filtra y cocina sus recetas de Instagram en un solo lugar."
+    />
+    <meta name="theme-color" content="#2F6B4F" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Mussri Cocina" />
+
+    <title>Mussri Cocina — Recetario de Doctor Mussri</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mussri Cocina — Recetario de Doctor Mussri" />
+    <meta
+      property="og:description"
+      content="Todas las recetas de Doctor Mussri, organizadas, buscables y fáciles de cocinar."
+    />
+    <meta property="og:image" content="assets/logo/doctormussri.jpg" />
+    <meta property="og:locale" content="es_CL" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mussri Cocina" />
+    <meta
+      name="twitter:description"
+      content="El recetario digital de la comunidad de Doctor Mussri."
+    />
+
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/logo/doctormussri.jpg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <header class="top-nav" id="top-nav">
+      <div class="top-nav__inner">
+        <a href="#home" class="brand" data-nav="home" aria-label="Mussri Cocina — Inicio">
+          <img
+            src="assets/logo/doctormussri.jpg"
+            alt=""
+            width="36"
+            height="36"
+            class="brand__logo"
+          />
+          <span class="brand__text">
+            <span class="brand__name">Mussri Cocina</span>
+            <span class="brand__sub">Recetario</span>
+          </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Principal">
+          <a href="#home" data-nav="home">Inicio</a>
+          <a href="#explore" data-nav="explore">Explorar</a>
+          <a href="#favorites" data-nav="favorites">Favoritos</a>
+          <a href="#about" data-nav="about">Acerca de</a>
+        </nav>
+
+        <button
+          type="button"
+          class="btn btn--ghost btn--sm surprise-btn"
+          id="surprise-btn-nav"
+          aria-label="Sorpréndeme con una receta al azar"
+        >
+          ✨ Sorpréndeme
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ===================== HOME ===================== -->
+      <section id="view-home" class="view view--home" hidden>
+        <section class="hero" aria-labelledby="hero-brand">
+          <div class="hero__media" aria-hidden="true">
+            <img
+              src="assets/images/avena-tostada.jpg"
+              alt=""
+              class="hero__img"
+              width="640"
+              height="640"
+              fetchpriority="high"
+            />
+            <div class="hero__veil"></div>
+          </div>
+
+          <div class="hero__content">
+            <p class="hero__brand" id="hero-brand">Mussri Cocina</p>
+            <h1 class="hero__title">
+              Tus recetas favoritas, ahora todas en un solo lugar.
+            </h1>
+            <p class="hero__subtitle">
+              Encuentra qué cocinar, filtra según lo que buscas y vuelve fácilmente
+              a cada receta de Doctor Mussri.
+            </p>
+
+            <form class="hero__search" role="search" id="hero-search-form">
+              <label class="sr-only" for="hero-search">Buscar recetas</label>
+              <input
+                id="hero-search"
+                type="search"
+                name="q"
+                placeholder="Busca pollo, avena, desayuno…"
+                autocomplete="off"
+                enterkeyhint="search"
+              />
+              <button type="submit" class="btn btn--primary">Buscar</button>
+            </form>
+
+            <div class="hero__cta">
+              <a href="#explore" class="btn btn--primary btn--lg" data-nav="explore"
+                >Explorar recetas</a
+              >
+              <button type="button" class="btn btn--secondary btn--lg" id="surprise-btn-hero">
+                ✨ Sorpréndeme
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="quick-heading">
+          <div class="section__head">
+            <h2 id="quick-heading">¿Qué quieres cocinar hoy?</h2>
+            <p>Elige una idea y te mostramos opciones al instante.</p>
+          </div>
+          <div class="quick-picks" id="quick-picks" role="list"></div>
+        </section>
+
+        <section class="section" aria-labelledby="featured-heading">
+          <div class="section__head">
+            <h2 id="featured-heading">Recetas destacadas</h2>
+            <p>Ideas para empezar sin pensarlo mucho.</p>
+          </div>
+          <div class="recipe-grid" id="featured-grid"></div>
+        </section>
+
+        <section class="community section" aria-labelledby="community-heading">
+          <div class="community__card">
+            <h2 id="community-heading">De Instagram a tu cocina</h2>
+            <p>
+              Este recetario ayuda a la comunidad de Doctor Mussri a encontrar
+              recetas anteriores, no depender solo de lo guardado en Instagram,
+              descubrir nuevas ideas y cocinar desde una interfaz hecha para el
+              teléfono.
+            </p>
+            <a
+              class="btn btn--primary"
+              href="https://www.instagram.com/doctormussri/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Seguir a Doctor Mussri en Instagram
+            </a>
+          </div>
+        </section>
+      </section>
+
+      <!-- ===================== EXPLORE ===================== -->
+      <section id="view-explore" class="view view--explore" hidden>
+        <div class="page-header">
+          <h1>Explorar</h1>
+          <p class="recipe-count" id="recipe-count" aria-live="polite"></p>
+        </div>
+
+        <div class="explore-toolbar">
+          <form class="search-bar" role="search" id="explore-search-form">
+            <label class="sr-only" for="explore-search">Buscar en el recetario</label>
+            <input
+              id="explore-search"
+              type="search"
+              placeholder="Nombre, ingrediente, categoría o tag…"
+              autocomplete="off"
+              enterkeyhint="search"
+            />
+          </form>
+
+          <div class="toolbar-row">
+            <label class="sort-label" for="sort-select">Ordenar</label>
+            <select id="sort-select" class="select">
+              <option value="newest">Más recientes</option>
+              <option value="oldest">Más antiguas</option>
+              <option value="az">A–Z</option>
+              <option value="fastest">Más rápidas</option>
+            </select>
+            <button
+              type="button"
+              class="btn btn--ghost btn--sm"
+              id="filters-toggle"
+              aria-expanded="false"
+              aria-controls="filters-panel"
+            >
+              Filtros
+            </button>
+          </div>
+        </div>
+
+        <div class="chips-scroll" id="category-chips" role="list" aria-label="Categorías"></div>
+
+        <div id="filters-panel" class="filters-panel" hidden>
+          <fieldset class="filter-group">
+            <legend>Tipo de comida</legend>
+            <div class="chip-group" id="meal-filters"></div>
+          </fieldset>
+          <fieldset class="filter-group">
+            <legend>Tiempo</legend>
+            <div class="chip-group" id="time-filters">
+              <button type="button" class="chip" data-time="lt15">&lt; 15 min</button>
+              <button type="button" class="chip" data-time="15-30">15–30 min</button>
+              <button type="button" class="chip" data-time="gt30">&gt; 30 min</button>
+            </div>
+          </fieldset>
+          <fieldset class="filter-group">
+            <legend>Características</legend>
+            <div class="chip-group" id="trait-filters"></div>
+          </fieldset>
+          <button type="button" class="btn btn--ghost btn--sm" id="clear-filters">
+            Limpiar filtros
+          </button>
+        </div>
+
+        <div class="recipe-grid" id="explore-grid"></div>
+        <div class="empty-state" id="explore-empty" hidden></div>
+      </section>
+
+      <!-- ===================== FAVORITES ===================== -->
+      <section id="view-favorites" class="view view--favorites" hidden>
+        <div class="page-header">
+          <h1>Mis favoritos</h1>
+          <p>Guardadas en este dispositivo. Sin cuenta ni login.</p>
+        </div>
+        <div class="recipe-grid" id="favorites-grid"></div>
+        <div class="empty-state" id="favorites-empty" hidden></div>
+      </section>
+
+      <!-- ===================== ABOUT ===================== -->
+      <section id="view-about" class="view view--about" hidden>
+        <div class="page-header">
+          <h1>Acerca de</h1>
+        </div>
+        <article class="about-card">
+          <img
+            src="assets/logo/doctormussri.jpg"
+            alt="Doctor Mussri"
+            class="about-card__avatar"
+            width="88"
+            height="88"
+          />
+          <h2>Mussri Cocina</h2>
+          <p>
+            Recetario digital pensado para la comunidad de
+            <strong>Doctor Mussri</strong> (@doctormussri): alimentación práctica,
+            tips con ciencia y recetas fáciles de volver a encontrar.
+          </p>
+          <a
+            class="btn btn--primary"
+            href="https://www.instagram.com/doctormussri/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Abrir Instagram</a
+          >
+        </article>
+
+        <aside class="disclaimer" aria-label="Aviso">
+          <p>
+            Este recetario organiza contenido publicado originalmente por Doctor
+            Mussri. Para información completa y actualizada, consulta siempre la
+            publicación original.
+          </p>
+          <p>
+            La información nutricional corresponde únicamente a los valores
+            publicados por el creador cuando están disponibles.
+          </p>
+        </aside>
+      </section>
+
+      <!-- ===================== RECIPE DETAIL ===================== -->
+      <section id="view-recipe" class="view view--recipe" hidden>
+        <article id="recipe-detail"></article>
+      </section>
+
+      <!-- ===================== COOK MODE ===================== -->
+      <section
+        id="view-cook"
+        class="view view--cook"
+        hidden
+        aria-label="Modo cocinar"
+      >
+        <div class="cook-shell" id="cook-shell"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación móvil">
+      <a href="#home" data-nav="home" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-10.5z"/></svg>
+        </span>
+        Inicio
+      </a>
+      <a href="#explore" data-nav="explore" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span>
+        Explorar
+      </a>
+      <a href="#favorites" data-nav="favorites" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+        </span>
+        Favoritos
+      </a>
+      <a href="#about" data-nav="about" class="bottom-nav__item">
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg>
+        </span>
+        Acerca de
+      </a>
+    </nav>
+
+    <footer class="site-footer">
+      <p>Recetario digital de la comunidad de Doctor Mussri</p>
+      <p>
+        <a
+          href="https://www.instagram.com/doctormussri/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >@doctormussri en Instagram</a
+        >
+      </p>
+      <p class="site-footer__note">
+        Las recetas pertenecen a su creador original. Esta app solo organiza el
+        contenido público para facilitarte cocinar.
+      </p>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="application/ld+json" id="schema-org"></script>
+    <script src="recipes.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
