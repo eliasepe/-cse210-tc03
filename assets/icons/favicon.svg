@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mussri Cocina">
+  <rect width="64" height="64" rx="16" fill="#2F6B4F"/>
+  <circle cx="32" cy="28" r="12" fill="#F7FAF8"/>
+  <path d="M20 46c4-8 20-8 24 0" fill="none" stroke="#F7FAF8" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="28" r="4" fill="#E07A3D"/>
+</svg>

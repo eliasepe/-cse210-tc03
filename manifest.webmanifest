@@ -1,0 +1,23 @@
+{
+  "name": "Mussri Cocina — Recetario Doctor Mussri",
+  "short_name": "Mussri Cocina",
+  "description": "Todas las recetas de Doctor Mussri, organizadas y fáciles de cocinar.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7faf8",
+  "theme_color": "#2f6b4f",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logo/doctormussri.jpg",
+      "sizes": "320x320",
+      "type": "image/jpeg"
+    }
+  ]
+}
